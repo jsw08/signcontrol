@@ -1,7 +1,5 @@
 # SignControl
 
-## Introduction
-
 SignControl is a cli utility that controls Symon NetBrite LED signs. Huge thanks
 to [kevinbosak](https://github.com/kevinbosak/Net-Symon-Netbrite).
 
