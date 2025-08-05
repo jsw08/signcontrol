@@ -17,6 +17,7 @@ my $display_delay;
 my $display_repeat;
 my $ttl;
 my $sound_alarm;
+my $reset;  # New flag for resetting the sign
 
 GetOptions(
     "zone=s@"           => \$zone_array_ref,
@@ -27,7 +28,8 @@ GetOptions(
     "display_delay=i"   => \$display_delay,
     "display_repeat=i"  => \$display_repeat,
     "ttl=i"             => \$ttl,
-    "sound_alarm"       => \$sound_alarm
+    "sound_alarm"       => \$sound_alarm,
+    "reset"             => \$reset  # Add the reset flag
 );
 
 die "Error: --address parameter is required.\n" unless defined $address;
@@ -65,6 +67,11 @@ foreach my $message_str (@{$message_array_ref}) {
 }
 
 my $sign = Net::Symon::NetBrite->new(address => $address);
+
+if ($reset) {  # If --reset is provided, reboot the sign
+    $sign->reboot();
+}
+
 $sign->zones(%zones);
 
 my %message_params;

@@ -68,6 +68,7 @@ zone2="x=10,y=10,width=10,height=10" --message zone1="Hello {scrolloff}"
 - `--display_repeat`: Not really sure. The default is 0.
 - `--ttl`: The message will self-destruct in x seconds. Default is 0.
 - `--sound_alarm`: If true, the sign will beep when the message is displayed.
+- `--reset`: resets the device before sending the message.
 
 ### Message Formatting
 
