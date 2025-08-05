@@ -11,9 +11,12 @@ to [kevinbosak](https://github.com/kevinbosak/Net-Symon-Netbrite).
    example, add an IP address to your Ethernet interface:
    ```sh
    sudo ip addr add 10.164.3.86/24 dev enp0s25 # Replace with your interface
-   name (e.g., enp0s25)
    ```
    This configures your device to communicate with the sign.
+
+### Debian
+
+-# I'm not completely sure about this one, don't use debian.
 
 2. **Install Perl Dependencies:** On a Debian-based system, install the required
    packages:
@@ -29,12 +32,20 @@ to [kevinbosak](https://github.com/kevinbosak/Net-Symon-Netbrite).
    These steps prepare the module for use. If you're building from source,
    ensure you have Perl 5.10 or later.
 
+### NixOS
+
+You should know this one.
+
+```sh
+nix run github:jsw08/signcontrol -- parameters
+```
+
 ## Usage
 
 To send messages to the sign, edit and run the provided script (e.g.,
 `signboard`). Example:
 
-```
+```sh
 signboard --address 10.164.3.87 --zone zone1="x=0,y=0,width=20,height=5" --zone
 zone2="x=10,y=10,width=10,height=10" --message zone1="Hello {scrolloff}"
 --message zone2="World {red}"
