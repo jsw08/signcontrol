@@ -116,27 +116,27 @@ format:
 --zone name="param1=0,param2=0"
 ```
 
-- `x:` The X coordinate to start the zone, required.
+- `x`: The X coordinate to start the zone, required.
 
-- `y:` The Y coordinate to start the zone, required.
+- `y`: The Y coordinate to start the zone, required.
 
-- `width:` The zone width, required.
+- `width`: The zone width, required.
 
-- `height:` The zone height, required.
+- `height`: The zone height, required.
 
-- `scroll_speed:` The speed of scrolling text in the zone. The default is
+- `scroll_speed`: The speed of scrolling text in the zone. The default is
   `SCROLL_MED`, but can also be `SCROLL_SLOW` or `SCROLL_FAST`.
 
-- `pause_duration:` The duration in milliseconds of any pause sequences in the
+- `pause_duration`: The duration in milliseconds of any pause sequences in the
   message text.
 
-- `volume:` The volume of beeps, notes, alarms, and other noises. Valid range is
+- `volume`: The volume of beeps, notes, alarms, and other noises. Valid range is
   0 (off) to 8 (deadly). Default is 4.
 
-- `default_font:` The default font. See 'Available Fonts'
+- `default_font`: The default font. See 'Available Fonts'
 
-- `default_color:` The default color. Can be `COLOR_RED`, `COLOR_GREEN`, or
+- `default_color`: The default color. Can be `COLOR_RED`, `COLOR_GREEN`, or
   `COLOR_YELLOW`. The default is red.
 
-- `initial_text:` The text initially displayed in the zone. This is just "." by
+- `initial_text`: The text initially displayed in the zone. This is just "." by
   default.
