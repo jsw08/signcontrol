@@ -52,31 +52,45 @@ zone2="x=10,y=10,width=10,height=10" --message zone1="Hello {scrolloff}"
 - Replace `10.164.3.87` with your sign's IP address.
 - Define zones with `--zone zonename="x=0,y=0,width=20,height=5"`.
 - Provide messages with `--message zonename="Text with formatting"`.
-- Options like `--priority override` or `--ttl 60` control message behavior.
 - I reccommend adding `{erase}` to the beginning of your first message. This
   will prevent glitches when changing the text.
 
-## Message Formatting
+### Flags
+
+- **--zone zonename=""**: See the heading zones below.
+- **--message zonename=""**: string with formatting options (see heading below).
+- **--address**: IP Address
+- **--priority**: The message priority determines how the new message will
+  replace an existing one. The default is PRI_OVERRIDE, but can also be
+  PRI_FOLLOW, PRI_INTERRUPT, PRI_YIELD or PRI_ROUNDROBIN.
+- **--"activation_delay**: Message activation delay in milliseconds. Default
+  is 0.
+- **--display_delay**: Message display delay in milliseconds. Default is 0.
+- **--display_repeat**: Not really sure. The default is 0.
+- **--ttl**: The message will self-destruct in x seconds. Default is 0.
+- **sound_alarm**: If true, the sign will beep when the message is displayed.
+
+### Message Formatting
 
 Messages support inline markup for dynamic effects. Include these tags directly
 in your message text:
 
-- **Scrolling:** `{scrolloff}` (turns off), `{scrollon}` (turns on).
-- **Blinking:** `{blinkon}` (turns on), `{blinkoff}` (turns off).
-- **Color:** `{red}`, `{green}`, `{yellow}`.
-- **Alignment:** `{left}`, `{center}`, `{right}`.
-- **Pause:** `{pause}` (pauses display).
-- **Erase:** `{erase}` (clears content).
-- **Serial Number:** `{serial}` (inserts sign's MAC address).
-- **Beep:** `{bell}` (It _should_ beep, but when I tried it it paused the text
+- **Scrolling**: `{scrolloff}` (turns off), `{scrollon}` (turns on).
+- **Blinking**: `{blinkon}` (turns on), `{blinkoff}` (turns off).
+- **Color**: `{red}`, `{green}`, `{yellow}`.
+- **Alignment**: `{left}`, `{center}`, `{right}`.
+- **Pause**: `{pause}` (pauses display).
+- **Erase**: `{erase}` (clears content).
+- **Serial Number**: `{serial}` (inserts sign's MAC address).
+- **Beep**: `{bell}` (It _should_ beep, but when I tried it it paused the text
   at the end).
-- **Note:** `{note [pitch] [duration]}` (e.g., `{note 100 500}` for a 100 Hz
+- **Note**: `{note [pitch] [duration]}` (e.g., `{note 100 500}` for a 100 Hz
   tone lasting 500 ms).
-- **Tune:** `{tune [1-9] ["repeat"]}` (e.g., `{tune 9}` for Charge!; add
+- **Tune**: `{tune [1-9] ["repeat"]}` (e.g., `{tune 9}` for Charge!; add
   "repeat" for looping).
-- **Font:** `{font [font_name]}` (switches font; see below).
+- **Font**: `{font [font_name]}` (switches font; see below).
 
-## Available Fonts
+### Available Fonts
 
 The following fonts can be used with `{font [font_name]}`:
 
@@ -94,7 +108,7 @@ The following fonts can be used with `{font [font_name]}`:
 
 Note: Ensure the font fits within the zone's height to avoid issues.
 
-## Zone Parameters
+### Zone Parameters
 
 To create a zone, add the `--zone` flag with the parameters in the following
 format:
@@ -103,13 +117,13 @@ format:
 --zone name="param1=0,param2=0"
 ```
 
-- **x:**: The X coordinate to start the zone, required.
+- **x:** The X coordinate to start the zone, required.
 
-- **y:**: The Y coordinate to start the zone, required.
+- **y:** The Y coordinate to start the zone, required.
 
-- **width:**: The zone width, required.
+- **width:** The zone width, required.
 
-- **height:**: The zone height, required.
+- **height:** The zone height, required.
 
 - **scroll_speed:** The speed of scrolling text in the zone. The default is
   `SCROLL_MED`, but can also be `SCROLL_SLOW` or `SCROLL_FAST`.
