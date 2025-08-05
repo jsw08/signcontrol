@@ -1,0 +1,96 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+use lib 'lib';
+use Net::Symon::NetBrite qw(:constants);
+use Net::Symon::NetBrite::Zone;
+use Getopt::Long;
+use Net::Symon::NetBrite;
+
+my $zone_array_ref;
+my $message_array_ref;
+my $address;
+my $priority;
+my $activation_delay;
+my $display_delay;
+my $display_repeat;
+my $ttl;
+my $sound_alarm;
+
+GetOptions(
+    "zone=s@"           => \$zone_array_ref,
+    "message=s@"        => \$message_array_ref,
+    "address=s"         => \$address,
+    "priority=s"        => \$priority,
+    "activation_delay=i"=> \$activation_delay,
+    "display_delay=i"   => \$display_delay,
+    "display_repeat=i"  => \$display_repeat,
+    "ttl=i"             => \$ttl,
+    "sound_alarm"       => \$sound_alarm
+);
+
+die "Error: --address parameter is required.\n" unless defined $address;
+die "Error: At least one --zone parameter is required.\n" unless defined $zone_array_ref && @{$zone_array_ref};
+die "Error: --message parameter must be provided for each zone.\n" unless defined $message_array_ref && @{$message_array_ref} == @{$zone_array_ref};
+
+my %zones;
+foreach my $zone_str (@{$zone_array_ref}) {
+    my ($name, $definition) = split /=/, $zone_str, 2;
+    die "Error: Invalid zone format. Use name=definition.\n" unless defined $name && defined $definition;
+
+    my %props = parse_zone_string($definition);
+
+    if (exists $props{'x'} && exists $props{'y'} && exists $props{'width'} && exists $props{'height'}) {
+        my $x1 = $props{'x'};
+        my $y1 = $props{'y'};
+        my $x2 = $x1 + $props{'width'} - 1;
+        my $y2 = $y1 + $props{'height'} - 1;
+        $props{'rect'} = [$x1, $y1, $x2, $y2];
+        delete $props{'x'};
+        delete $props{'y'};
+        delete $props{'width'};
+        delete $props{'height'};
+    }
+
+    $zones{$name} = Net::Symon::NetBrite::Zone->new(%props);
+}
+
+my %messages;
+foreach my $message_str (@{$message_array_ref}) {
+    my ($name, $text) = split /=/, $message_str, 2;
+    die "Error: Invalid message format. Use name=message text.\n" unless defined $name && defined $text;
+    die "Error: Zone '$name' not defined.\n" unless exists $zones{$name};
+    $messages{$name} = $text;  # Use the message as-is, including any formatting tags
+}
+
+my $sign = Net::Symon::NetBrite->new(address => $address);
+$sign->zones(%zones);
+
+my %message_params;
+$message_params{activation_delay} = $activation_delay if defined $activation_delay;
+$message_params{display_delay} = $display_delay if defined $display_delay;
+$message_params{display_repeat} = $display_repeat if defined $display_repeat;
+$message_params{ttl} = $ttl if defined $ttl;
+$message_params{sound_alarm} = 1 if defined $sound_alarm;
+if ($priority) {
+    $message_params{priority} = PRI_OVERRIDE if $priority eq 'override';
+    $message_params{priority} = PRI_INTERRUPT if $priority eq 'interrupt';
+    $message_params{priority} = PRI_FOLLOW if $priority eq 'follow';
+    $message_params{priority} = PRI_YIELD if $priority eq 'yield';
+    $message_params{priority} = PRI_ROUNDROBIN if $priority eq 'roundrobin';
+}
+
+foreach my $name (keys %messages) {
+    $sign->message($name, $messages{$name}, \%message_params);  # Pass raw message
+}
+
+sub parse_zone_string {
+    my ($str) = @_;
+    my %hash;
+    for my $pair (split /,/, $str) {
+        my ($key, $value) = split /=/, $pair;
+        $hash{$key} = $value;
+    }
+    return %hash;
+}
