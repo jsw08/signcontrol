@@ -14,7 +14,7 @@ to [kevinbosak](https://github.com/kevinbosak/Net-Symon-Netbrite).
 
 ### Debian
 
--# I'm not completely sure about this one, don't use debian.
+I'm not completely sure about this one, I don't use debian.
 
 2. **Install Perl Dependencies:** On a Debian-based system, install the required
    packages:
