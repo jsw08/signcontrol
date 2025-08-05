@@ -57,18 +57,17 @@ zone2="x=10,y=10,width=10,height=10" --message zone1="Hello {scrolloff}"
 
 ### Flags
 
-- **--zone zonename=""**: See the heading zones below.
-- **--message zonename=""**: string with formatting options (see heading below).
-- **--address**: IP Address
-- **--priority**: The message priority determines how the new message will
-  replace an existing one. The default is PRI_OVERRIDE, but can also be
-  PRI_FOLLOW, PRI_INTERRUPT, PRI_YIELD or PRI_ROUNDROBIN.
-- **--"activation_delay**: Message activation delay in milliseconds. Default
-  is 0.
-- **--display_delay**: Message display delay in milliseconds. Default is 0.
-- **--display_repeat**: Not really sure. The default is 0.
-- **--ttl**: The message will self-destruct in x seconds. Default is 0.
-- **sound_alarm**: If true, the sign will beep when the message is displayed.
+- `--zone zonename=""`: See the heading zones below.
+- `--message zonename=""`: string with formatting options (see heading below).
+- `--address`: IP Address
+- `--priority`: The message priority determines how the new message will replace
+  an existing one. The default is PRI_OVERRIDE, but can also be PRI_FOLLOW,
+  PRI_INTERRUPT, PRI_YIELD or PRI_ROUNDROBIN.
+- `--"activation_delay`: Message activation delay in milliseconds. Default is 0.
+- `--display_delay`: Message display delay in milliseconds. Default is 0.
+- `--display_repeat`: Not really sure. The default is 0.
+- `--ttl`: The message will self-destruct in x seconds. Default is 0.
+- `sound_alarm`: If true, the sign will beep when the message is displayed.
 
 ### Message Formatting
 
@@ -117,27 +116,27 @@ format:
 --zone name="param1=0,param2=0"
 ```
 
-- **x:** The X coordinate to start the zone, required.
+- `x:` The X coordinate to start the zone, required.
 
-- **y:** The Y coordinate to start the zone, required.
+- `y:` The Y coordinate to start the zone, required.
 
-- **width:** The zone width, required.
+- `width:` The zone width, required.
 
-- **height:** The zone height, required.
+- `height:` The zone height, required.
 
-- **scroll_speed:** The speed of scrolling text in the zone. The default is
+- `scroll_speed:` The speed of scrolling text in the zone. The default is
   `SCROLL_MED`, but can also be `SCROLL_SLOW` or `SCROLL_FAST`.
 
-- **pause_duration:** The duration in milliseconds of any pause sequences in the
+- `pause_duration:` The duration in milliseconds of any pause sequences in the
   message text.
 
-- **volume:** The volume of beeps, notes, alarms, and other noises. Valid range
-  is 0 (off) to 8 (deadly). Default is 4.
+- `volume:` The volume of beeps, notes, alarms, and other noises. Valid range is
+  0 (off) to 8 (deadly). Default is 4.
 
-- **default_font:** The default font. See 'Available Fonts'
+- `default_font:` The default font. See 'Available Fonts'
 
-- **default_color:** The default color. Can be `COLOR_RED`, `COLOR_GREEN`, or
+- `default_color:` The default color. Can be `COLOR_RED`, `COLOR_GREEN`, or
   `COLOR_YELLOW`. The default is red.
 
-- **initial_text:** The text initially displayed in the zone. This is just "."
-  by default.
+- `initial_text:` The text initially displayed in the zone. This is just "." by
+  default.
